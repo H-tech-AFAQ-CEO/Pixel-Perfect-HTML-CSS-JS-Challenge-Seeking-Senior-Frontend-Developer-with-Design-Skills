@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mining.com.au – Mining News Australia</title>
+<meta name="description" content="Bringing you daily relevant mining news and updates from Australia and around the world.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── Reset & Base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:      #0a0a0a;
+  --dark:       #141414;
+  --mid:        #1e1e1e;
+  --border:     #2a2a2a;
+  --muted:      #6b6b6b;
+  --text:       #e8e8e8;
+  --text-dim:   #a0a0a0;
+  --gold:       #c9a227;
+  --gold-light: #e2b93b;
+  --red:        #c0392b;
+  --white:      #ffffff;
+  --nav-h:      56px;
+  --ticker-h:   36px;
+  --max-w:      1240px;
+  --serif:      'Merriweather', Georgia, serif;
+  --sans:       'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--black);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ─── Top Bar ──────────────────────────────────────────── */
+.top-bar {
+  background: var(--dark);
+  border-bottom: 1px solid var(--border);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+  font-size: 11px;
+  color: var(--text-dim);
+  gap: 16px;
+}
+.top-bar a { transition: color .2s; }
+.top-bar a:hover { color: var(--gold); }
+
+/* ─── Nav ──────────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--dark);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 16px;
+}
+
+.nav-logo {
+  flex-shrink: 0;
+  margin-right: 28px;
+}
+
+.nav-logo img { height: 32px; width: auto; }
+
+.nav-logo-text {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+.nav-logo-text span { color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-item > a, .nav-item > button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color .2s, background .2s;
+  letter-spacing: 0.01em;
+}
+.nav-item > a:hover, .nav-item > button:hover {
+  color: var(--white);
+  background: rgba(255,255,255,.05);
+}
+
+.nav-item .chevron {
+  width: 10px; height: 10px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  display: inline-block;
+  transition: transform .2s;
+}
+.nav-item:hover .chevron { transform: rotate(225deg) translateY(-2px); }
+
+/* Dropdown */
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 200px;
+  background: var(--mid);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity .2s, transform .2s;
+  box-shadow: 0 12px 40px rgba(0,0,0,.6);
+}
+.nav-item:hover .nav-dropdown,
+.nav-item:focus-within .nav-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.nav-dropdown a {
+  display: block;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--text-dim);
+  transition: color .15s, background .15s;
+}
+.nav-dropdown a:hover { color: var(--white); background: rgba(255,255,255,.06); }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.btn-advertise {
+  padding: 6px 14px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  transition: background .2s, color .2s;
+  white-space: nowrap;
+}
+.btn-advertise:hover { background: var(--gold); color: var(--black); }
+
+.btn-newsletter {
+  padding: 6px 14px;
+  background: var(--gold);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--black);
+  white-space: nowrap;
+  transition: background .2s;
+}
+.btn-newsletter:hover { background: var(--gold-light); }
+
+/* Hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  margin-left: auto;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav drawer */
+.mobile-nav {
+  display: none;
+  background: var(--mid);
+  border-top: 1px solid var(--border);
+  padding: 12px 16px 20px;
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+}
+.mobile-nav.open { display: block; }
+.mobile-nav a {
+  display: block;
+  padding: 10px 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:hover { color: var(--gold); }
+
+/* ─── Breaking Ticker ──────────────────────────────────── */
+.ticker-bar {
+  background: var(--red);
+  height: var(--ticker-h);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ticker-label {
+  flex-shrink: 0;
+  background: #9b1c1c;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  gap: 6px;
+  white-space: nowrap;
+}
+.ticker-dot {
+  width: 6px; height: 6px;
+  background: var(--white);
+  border-radius: 50%;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 60s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,.9);
+}
+.ticker-item a { color: inherit; transition: color .2s; }
+.ticker-item a:hover { color: var(--white); text-decoration: underline; }
+.ticker-sep { color: rgba(255,255,255,.4); }
+
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Layout ───────────────────────────────────────────── */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ─── Section Headers ──────────────────────────────────── */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.section-head h2 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.3px;
+}
+.section-head .gold-bar {
+  width: 3px;
+  height: 18px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+.section-head .view-more {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color .2s;
+}
+.section-head .view-more:hover { color: var(--gold-light); }
+
+/* ─── Hero Grid ────────────────────────────────────────── */
+.hero {
+  padding: 28px 0 0;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: auto auto;
+  gap: 2px;
+}
+
+/* Featured article – left column, spans rows */
+.hero-featured {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  position: relative;
+  overflow: hidden;
+  background: var(--mid);
+  cursor: pointer;
+}
+.hero-featured:hover .card-img { transform: scale(1.03); }
+.hero-featured .card-img-wrap {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.hero-featured .card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.hero-featured .card-body {
+  padding: 20px;
+}
+.hero-featured .card-cat {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+.hero-featured .card-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--white);
+  margin-bottom: 8px;
+  transition: color .2s;
+}
+.hero-featured:hover .card-title { color: var(--gold); }
+.hero-featured .card-date {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Side stack – right column */
+.hero-side {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.side-card {
+  position: relative;
+  background: var(--mid);
+  cursor: pointer;
+  overflow: hidden;
+  flex: 1;
+}
+.side-card:hover .side-card-img { transform: scale(1.04); }
+.side-card-img-wrap {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.side-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.side-card-body {
+  padding: 12px 14px;
+}
+.side-card-cat {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.side-card-title {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--white);
+  transition: color .2s;
+}
+.side-card:hover .side-card-title { color: var(--gold); }
+.side-card-date {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ─── News Stream (below hero) ─────────────────────────── */
+.news-stream {
+  padding: 32px 0;
+}
+
+.news-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+}
+
+.news-card {
+  background: var(--mid);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.news-card:hover .news-card-img { transform: scale(1.04); }
+.news-card-img-wrap {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.news-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.news-card-body {
+  padding: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.news-card-cat {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.news-card-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--white);
+  flex: 1;
+  transition: color .2s;
+}
+.news-card:hover .news-card-title { color: var(--gold); }
+.news-card-date {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ─── Special Features ─────────────────────────────────── */
+.special-features { padding: 32px 0; }
+
+.sf-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2px;
+}
+
+.sf-card {
+  position: relative;
+  background: var(--mid);
+  overflow: hidden;
+  cursor: pointer;
+}
+.sf-card:hover .sf-img { transform: scale(1.04); }
+
+.sf-card-large {
+  grid-row: 1 / 3;
+}
+
+.sf-img-wrap {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.sf-card-large .sf-img-wrap {
+  aspect-ratio: auto;
+  height: 100%;
+  max-height: 360px;
+}
+.sf-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.sf-card-body {
+  padding: 14px;
+}
+.sf-cat {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.sf-title {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--white);
+  transition: color .2s;
+}
+.sf-card:hover .sf-title { color: var(--gold); }
+.sf-card-large .sf-title { font-size: 20px; }
+.sf-meta {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.sf-author { color: var(--text-dim); }
+
+/* ─── Deals Section ────────────────────────────────────── */
+.deals { padding: 32px 0; background: #0d0d0d; }
+
+.deals-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+}
+
+.deal-card {
+  background: var(--mid);
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.deal-card:hover { background: #242424; }
+.deal-img-wrap {
+  flex-shrink: 0;
+  width: 120px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.deal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s;
+}
+.deal-card:hover .deal-img { transform: scale(1.05); }
+.deal-body { flex: 1; min-width: 0; }
+.deal-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--white);
+  margin-bottom: 6px;
+  transition: color .2s;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.deal-card:hover .deal-title { color: var(--gold); }
+.deal-excerpt {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.deal-meta {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ─── Trending ─────────────────────────────────────────── */
+.trending { padding: 32px 0; }
+.trending-list { display: flex; flex-direction: column; gap: 1px; }
+.trending-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--mid);
+  padding: 14px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.trending-item:hover { background: #242424; }
+.trending-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--border);
+  font-family: var(--serif);
+  line-height: 1;
+  width: 32px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.trending-item:hover .trending-num { color: var(--gold); }
+.trending-img-wrap {
+  flex-shrink: 0;
+  width: 100px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.trending-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s;
+}
+.trending-item:hover .trending-img { transform: scale(1.05); }
+.trending-body { flex: 1; min-width: 0; }
+.trending-cat {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.trending-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--white);
+  transition: color .2s;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.trending-item:hover .trending-title { color: var(--gold); }
+.trending-excerpt {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.trending-date { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+/* ─── Two-col layout (trending + sidebar) ─────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  padding: 32px 0;
+}
+
+/* ─── Videos ───────────────────────────────────────────── */
+.videos { padding: 32px 0; background: #0d0d0d; }
+.videos-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2px;
+}
+.video-card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background: var(--mid);
+}
+.video-img-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.video-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.video-card:hover .video-img { transform: scale(1.04); }
+.play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.3);
+  transition: background .2s;
+}
+.video-card:hover .play-btn { background: rgba(0,0,0,.5); }
+.play-icon {
+  width: 44px; height: 44px;
+  background: rgba(201,162,39,.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s, background .2s;
+}
+.video-card:hover .play-icon { transform: scale(1.1); background: var(--gold); }
+.play-icon::after {
+  content: '';
+  border-left: 14px solid var(--black);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  margin-left: 4px;
+}
+.video-body { padding: 14px; }
+.video-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--white);
+  transition: color .2s;
+}
+.video-card:hover .video-title { color: var(--gold); }
+.video-date { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+/* ─── Newsletter CTA ───────────────────────────────────── */
+.newsletter-cta {
+  background: linear-gradient(135deg, #1a1507 0%, #0d0d0d 60%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0;
+}
+.newsletter-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+.newsletter-icon {
+  width: 48px; height: 48px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.newsletter-cta h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.newsletter-cta p {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+}
+.newsletter-form {
+  display: flex;
+  gap: 8px;
+}
+.newsletter-form input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--mid);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--white);
+  font-size: 14px;
+  font-family: var(--sans);
+  outline: none;
+  transition: border-color .2s;
+}
+.newsletter-form input::placeholder { color: var(--muted); }
+.newsletter-form input:focus { border-color: var(--gold); }
+.newsletter-form button {
+  padding: 10px 20px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background .2s;
+}
+.newsletter-form button:hover { background: var(--gold-light); }
+
+/* ─── Commodities Grid ─────────────────────────────────── */
+.commodities { padding: 48px 0; }
+.comm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.comm-card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  background: var(--mid);
+  transition: border-color .2s, background .2s;
+  cursor: pointer;
+}
+.comm-card:hover { border-color: var(--gold); background: #1f1e17; }
+.comm-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: #252310;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+.comm-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.comm-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* ─── Events ───────────────────────────────────────────── */
+.events { padding: 32px 0; background: #0d0d0d; }
+.events-list { display: flex; flex-direction: column; gap: 1px; }
+.event-card {
+  display: flex;
+  gap: 16px;
+  background: var(--mid);
+  padding: 18px;
+  cursor: pointer;
+  align-items: flex-start;
+  transition: background .2s;
+}
+.event-card:hover { background: #242424; }
+.event-date-box {
+  flex-shrink: 0;
+  text-align: center;
+  width: 56px;
+  background: var(--gold);
+  padding: 8px 4px;
+  border-radius: 4px;
+}
+.event-date-box .month {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: 0.05em;
+}
+.event-date-box .day {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1;
+}
+.event-body { flex: 1; }
+.event-title {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+  transition: color .2s;
+}
+.event-card:hover .event-title { color: var(--gold); }
+.event-where {
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.event-where::before { content: '📍'; font-size: 11px; }
+.event-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Footer ───────────────────────────────────────────── */
+.site-footer {
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+  padding: 48px 0 0;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.footer-brand p {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 12px;
+  line-height: 1.6;
+  max-width: 260px;
+}
+.footer-logo-text {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+}
+.footer-logo-text span { color: var(--gold); }
+.footer-socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.social-btn {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-dim);
+  transition: border-color .2s, color .2s;
+}
+.social-btn:hover { border-color: var(--gold); color: var(--gold); }
+.footer-col h4 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+.footer-col ul li {
+  margin-bottom: 8px;
+}
+.footer-col ul li a {
+  font-size: 13px;
+  color: var(--muted);
+  transition: color .2s;
+}
+.footer-col ul li a:hover { color: var(--gold); }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer-bottom a { color: var(--muted); transition: color .2s; }
+.footer-bottom a:hover { color: var(--gold); }
+
+/* ─── Placeholder images (CSS-generated fallbacks) ─────── */
+.img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--mid) 0%, #252525 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Utility ──────────────────────────────────────────── */
+.section-pad { padding: 32px 0; }
+
+/* ─── Responsive ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-side { flex-direction: row; }
+  .hero-featured { grid-row: 1; }
+  .hero-side { grid-column: 1; grid-row: 2; }
+  .sf-grid { grid-template-columns: 1fr 1fr; }
+  .sf-card-large { grid-column: 1 / 3; grid-row: 1; }
+  .videos-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-actions { display: none; }
+  .nav-hamburger { display: flex; }
+  .news-cols { grid-template-columns: 1fr 1fr; }
+  .deals-list { grid-template-columns: 1fr; }
+  .comm-grid { grid-template-columns: 1fr 1fr; }
+  .hero-side { flex-direction: column; }
+  .videos-grid { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .sf-grid { grid-template-columns: 1fr; }
+  .sf-card-large { grid-column: 1; grid-row: auto; }
+}
+
+@media (max-width: 480px) {
+  .news-cols { grid-template-columns: 1fr; }
+  .comm-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Scroll fade in ───────────────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in { opacity: 1; transform: none; transition: none; }
+  .ticker-track { animation: none; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<a href="#primary" class="skip-link">Skip to content</a>
+
+<!-- Top Bar -->
+<div class="top-bar" role="navigation" aria-label="Secondary navigation">
+  <a href="#">Team</a>
+  <a href="#">Contact</a>
+  <a href="#">Privacy Policy</a>
+</div>
+
+<!-- Site Header -->
+<header class="site-header" role="banner">
+  <nav class="nav-main" aria-label="Primary navigation">
+    <a class="nav-logo" href="#" aria-label="Mining.com.au – home">
+      <span class="nav-logo-text">Mining<span>.com.au</span></span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li class="nav-item">
+        <button aria-haspopup="true" aria-expanded="false">Commodities <span class="chevron" aria-hidden="true"></span></button>
+        <ul class="nav-dropdown" role="list">
+          <li><a href="#">Base Metals</a></li>
+          <li><a href="#">Copper</a></li>
+          <li><a href="#">Precious Metals</a></li>
+          <li><a href="#">Gold</a></li>
+          <li><a href="#">Silver</a></li>
+          <li><a href="#">Battery Metals</a></li>
+          <li><a href="#">Lithium</a></li>
+          <li><a href="#">Critical Minerals</a></li>
+          <li><a href="#">Iron Ore</a></li>
+          <li><a href="#">Uranium</a></li>
+          <li><a href="#">Rare Earth Elements</a></li>
+        </ul>
+      </li>
+      <li class="nav-item"><a href="#">Deals</a></li>
+      <li class="nav-item">
+        <button aria-haspopup="true" aria-expanded="false">Regions <span class="chevron" aria-hidden="true"></span></button>
+        <ul class="nav-dropdown" role="list">
+          <li><a href="#">Australia</a></li>
+          <li><a href="#">Canada</a></li>
+          <li><a href="#">USA</a></li>
+          <li><a href="#">South America</a></li>
+          <li><a href="#">Asia</a></li>
+          <li><a href="#">Africa</a></li>
+          <li><a href="#">Europe</a></li>
+        </ul>
+      </li>
+      <li class="nav-item"><a href="#">Events</a></li>
+      <li class="nav-item"><a href="#">Suppliers</a></li>
+      <li class="nav-item"><a href="#">Video</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="#" class="btn-newsletter">Newsletter</a>
+      <a href="#" class="btn-advertise">Advertise</a>
+    </div>
+
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile nav -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
+    <a href="#">Commodities</a>
+    <a href="#">Deals</a>
+    <a href="#">Regions</a>
+    <a href="#">Events</a>
+    <a href="#">Suppliers</a>
+    <a href="#">Video</a>
+    <a href="#">Newsletter</a>
+    <a href="#">Advertise</a>
+  </nav>
+</header>
+
+<!-- Breaking Ticker -->
+<div class="ticker-bar" role="marquee" aria-label="Breaking news ticker" aria-live="off">
+  <div class="ticker-label">
+    <span class="ticker-dot" aria-hidden="true"></span>
+    Breaking
+  </div>
+  <div class="ticker-track-wrap">
+    <div class="ticker-track" id="ticker">
+      <span class="ticker-item"><a href="#">Trident confirms gold mineralisation at 2026 winter program</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">1911 Gold upsizes bought deal for True North</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Majestic Gold receives conditional approval for C$49 million placement</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Thesis launches 20,000m drilling campaign at Lawyers-Ranch</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Critical minerals take centre stage at G7</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Zodiac Gold ups private placement for Todi project</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Stavely begins deep drilling at Freddy's Find</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Kingston pivots Mineral Hill strategy with capital raising</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <!-- Duplicate for seamless loop -->
+      <span class="ticker-item"><a href="#">Trident confirms gold mineralisation at 2026 winter program</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">1911 Gold upsizes bought deal for True North</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Majestic Gold receives conditional approval for C$49 million placement</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Thesis launches 20,000m drilling campaign at Lawyers-Ranch</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Critical minerals take centre stage at G7</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Zodiac Gold ups private placement for Todi project</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Stavely begins deep drilling at Freddy's Find</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+      <span class="ticker-item"><a href="#">Kingston pivots Mineral Hill strategy with capital raising</a> <span class="ticker-sep" aria-hidden="true">•</span></span>
+    </div>
+  </div>
+</div>
+
+<main id="primary">
+
+<!-- ─── Hero Grid ─────────────────────────────────────────── -->
+<section class="hero" aria-label="Top stories">
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- Featured Article -->
+      <article class="hero-featured fade-in">
+        <a href="https://mining.com.au/trident-confirms-gold-mineralisation-at-2026-winter-program/" aria-label="Read: Trident confirms gold mineralisation at 2026 winter program">
+          <div class="card-img-wrap">
+            <img
+              class="card-img"
+              src="https://mining.com.au/wp-content/uploads/2026/06/Trident-Resources-Unsplash-1024x576.png"
+              alt="Trident Resources gold mining site"
+              loading="eager"
+              onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>Mining</div>'"
+            >
+          </div>
+          <div class="card-body">
+            <span class="card-cat">Gold</span>
+            <h1 class="card-title">Trident confirms gold mineralisation at 2026 winter program</h1>
+            <time class="card-date" datetime="2026-06-18">18 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+      <!-- Side Stack -->
+      <div class="hero-side">
+        <article class="side-card fade-in">
+          <a href="https://mining.com.au/1911-gold-upsizes-bought-deal-for-true-north/">
+            <div class="side-card-img-wrap">
+              <img
+                class="side-card-img"
+                src="https://mining.com.au/wp-content/uploads/2026/06/1911-gold-true-north-gold-project-manitoba-ca-1024x576.png"
+                alt="1911 Gold True North Gold Project"
+                loading="eager"
+                onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>News</div>'"
+              >
+            </div>
+            <div class="side-card-body">
+              <span class="side-card-cat">News</span>
+              <h2 class="side-card-title">1911 Gold upsizes bought deal for True North</h2>
+              <time class="side-card-date" datetime="2026-06-18">18 June 2026</time>
+            </div>
+          </a>
+        </article>
+        <article class="side-card fade-in">
+          <a href="https://mining.com.au/majestic-gold-receives-conditional-approval-for-c49-million-placement/">
+            <div class="side-card-img-wrap">
+              <img
+                class="side-card-img"
+                src="https://mining.com.au/wp-content/uploads/2026/06/Majestic-Gold-Unsplash-1024x576.png"
+                alt="Majestic Gold"
+                loading="eager"
+                onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>News</div>'"
+              >
+            </div>
+            <div class="side-card-body">
+              <span class="side-card-cat">News</span>
+              <h2 class="side-card-title">Majestic Gold receives conditional approval for C$49 million placement</h2>
+              <time class="side-card-date" datetime="2026-06-18">18 June 2026</time>
+            </div>
+          </a>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── News Stream ────────────────────────────────────────── -->
+<section class="news-stream" aria-label="Latest news">
+  <div class="container">
+    <div class="section-head">
+      <div class="gold-bar" aria-hidden="true"></div>
+      <h2>Latest News</h2>
+      <a href="https://mining.com.au/news/" class="view-more" aria-label="View all news">View more →</a>
+    </div>
+    <div class="news-cols">
+
+      <article class="news-card fade-in">
+        <a href="https://mining.com.au/thesis-launches-20000m-drilling-campaign-at-lawyers-ranch/">
+          <div class="news-card-img-wrap">
+            <img class="news-card-img" src="https://mining.com.au/wp-content/uploads/2026/06/thesis-unsplash-1024x576.png" alt="Thesis Gold drilling" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>News</div>'">
+          </div>
+          <div class="news-card-body">
+            <span class="news-card-cat">News</span>
+            <h3 class="news-card-title">Thesis launches 20,000m drilling campaign at Lawyers-Ranch</h3>
+            <time class="news-card-date" datetime="2026-06-18">18 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="news-card fade-in">
+        <a href="https://mining.com.au/zodiac-gold-ups-private-placement-for-todi-project/">
+          <div class="news-card-img-wrap">
+            <img class="news-card-img" src="https://mining.com.au/wp-content/uploads/2026/02/zodiac-gold-photo-4-1024x768.webp" alt="Zodiac Gold Todi project" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>News</div>'">
+          </div>
+          <div class="news-card-body">
+            <span class="news-card-cat">News</span>
+            <h3 class="news-card-title">Zodiac Gold ups private placement for Todi project</h3>
+            <time class="news-card-date" datetime="2026-06-18">18 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="news-card fade-in">
+        <a href="https://mining.com.au/critical-minerals-take-centre-stage-at-g7/">
+          <div class="news-card-img-wrap">
+            <img class="news-card-img" src="https://mining.com.au/wp-content/uploads/2026/06/G7-2026-1024x576.png" alt="G7 2026 critical minerals" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>News</div>'">
+          </div>
+          <div class="news-card-body">
+            <span class="news-card-cat">News</span>
+            <h3 class="news-card-title">Critical minerals take centre stage at G7</h3>
+            <time class="news-card-date" datetime="2026-06-18">18 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="news-card fade-in">
+        <a href="https://mining.com.au/purepoint-targets-nova-expansion-with-summer-drilling/">
+          <div class="news-card-img-wrap">
+            <img class="news-card-img" src="https://mining.com.au/wp-content/uploads/2026/06/purepoint-uranium-group-dorado-project-saskatchewan-canada-1024x576.png" alt="Purepoint Uranium" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>Uranium</div>'">
+          </div>
+          <div class="news-card-body">
+            <span class="news-card-cat">Uranium</span>
+            <h3 class="news-card-title">Purepoint targets Nova expansion with summer drilling</h3>
+            <time class="news-card-date" datetime="2026-06-18">18 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="news-card fade-in">
+        <a href="https://mining.com.au/stavely-begins-deep-drilling-at-freddys-find/">
+          <div class="news-card-img-wrap">
+            <img class="news-card-img" src="https://mining.com.au/wp-content/uploads/2026/06/stavely-minerals-stavely-project-victoria-1024x576.png" alt="Stavely Minerals project" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>News</div>'">
+          </div>
+          <div class="news-card-body">
+            <span class="news-card-cat">News</span>
+            <h3 class="news-card-title">Stavely begins deep drilling at Freddy's Find</h3>
+            <time class="news-card-date" datetime="2026-06-18">18 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="news-card fade-in">
+        <a href="https://mining.com.au/lodestar-extends-gold-mineralisation-beyond-exploration-target/">
+          <div class="news-card-img-wrap">
+            <img class="news-card-img" src="https://mining.com.au/wp-content/uploads/2026/06/lodestar-minerals-neds-creek-gold-project-western-australia-1024x576.png" alt="Lodestar Minerals" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>News</div>'">
+          </div>
+          <div class="news-card-body">
+            <span class="news-card-cat">News</span>
+            <h3 class="news-card-title">Lodestar extends gold mineralisation beyond exploration target</h3>
+            <time class="news-card-date" datetime="2026-06-18">18 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Special Features ──────────────────────────────────── -->
+<section class="special-features" aria-label="Special features">
+  <div class="container">
+    <div class="section-head">
+      <div class="gold-bar" aria-hidden="true"></div>
+      <h2>Special Features</h2>
+      <a href="https://mining.com.au/special-features/" class="view-more">View more →</a>
+    </div>
+    <div class="sf-grid">
+
+      <article class="sf-card sf-card-large fade-in">
+        <a href="https://mining.com.au/trek-metals-eyes-pilbara-style-success-with-manganese-discovery/">
+          <div class="sf-img-wrap">
+            <img class="sf-img" src="https://mining.com.au/wp-content/uploads/2026/06/Trek-Metals-Special-Feature--1024x576.jpg" alt="Trek Metals manganese discovery" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:360px\'>Feature</div>'">
+          </div>
+          <div class="sf-card-body">
+            <p class="sf-cat">Special Feature</p>
+            <h3 class="sf-title">Trek Metals eyes Pilbara-style success with manganese discovery</h3>
+            <p class="sf-meta"><time datetime="2026-06-18">18 June 2026</time> · <span class="sf-author">Emma Davies</span></p>
+          </div>
+        </a>
+      </article>
+
+      <article class="sf-card fade-in">
+        <a href="https://mining.com.au/canuc-resources-targets-sudbury-iocg-breakthrough/">
+          <div class="sf-img-wrap">
+            <img class="sf-img" src="https://mining.com.au/wp-content/uploads/2026/06/Canuc-Special-Feature_150626-1024x576.png" alt="Canuc Resources" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>Feature</div>'">
+          </div>
+          <div class="sf-card-body">
+            <p class="sf-cat">Special Feature</p>
+            <h3 class="sf-title">Canuc Resources eyes IOCG breakthrough in Sudbury</h3>
+            <p class="sf-meta"><time datetime="2026-06-17">17 June 2026</time> · <span class="sf-author">Amy Rotman</span></p>
+          </div>
+        </a>
+      </article>
+
+      <article class="sf-card fade-in">
+        <a href="https://mining.com.au/vrx-silica-shovel-ready-growth/">
+          <div class="sf-img-wrap">
+            <img class="sf-img" src="https://mining.com.au/wp-content/uploads/2026/06/VRX-Silica-Special-Feature-1024x576.png" alt="VRX Silica" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>Feature</div>'">
+          </div>
+          <div class="sf-card-body">
+            <p class="sf-cat">Special Feature</p>
+            <h3 class="sf-title">VRX Silica: Shovel-ready growth</h3>
+            <p class="sf-meta"><time datetime="2026-06-16">16 June 2026</time> · <span class="sf-author">Amy Rotman</span></p>
+          </div>
+        </a>
+      </article>
+
+      <article class="sf-card fade-in">
+        <a href="https://mining.com.au/from-junior-explorer-to-us-copper-leader-faradays-district-scale-vision/">
+          <div class="sf-img-wrap">
+            <img class="sf-img" src="https://mining.com.au/wp-content/uploads/2026/06/Faraday-Copper-Special-Feature_r1-1024x576.png" alt="Faraday Copper" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>Feature</div>'">
+          </div>
+          <div class="sf-card-body">
+            <p class="sf-cat">Special Feature</p>
+            <h3 class="sf-title">From junior explorer to US copper leader: Faraday's district-scale vision</h3>
+            <p class="sf-meta"><time datetime="2026-06-11">11 June 2026</time> · <span class="sf-author">Amy Rotman</span></p>
+          </div>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Deals & Dollars ───────────────────────────────────── -->
+<section class="deals" aria-label="Deals and dollars">
+  <div class="container">
+    <div class="section-head">
+      <div class="gold-bar" aria-hidden="true"></div>
+      <h2>Deals &amp; Dollars</h2>
+      <a href="https://mining.com.au/deals/" class="view-more">View more →</a>
+    </div>
+    <div class="deals-list">
+
+      <article class="deal-card fade-in">
+        <a href="https://mining.com.au/renegade-divests-carpentaria-joint-venture/" style="display:flex;gap:14px;width:100%">
+          <div class="deal-img-wrap">
+            <img class="deal-img" src="https://mining.com.au/wp-content/uploads/2026/06/Renegade-Exploration-Australia-1024x576.png" alt="Renegade Exploration" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:80px\'>Deals</div>'">
+          </div>
+          <div class="deal-body">
+            <h3 class="deal-title">Renegade divests Carpentaria Joint Venture</h3>
+            <p class="deal-excerpt">Renegade Exploration (ASX:RNX) has completed the divestment of its 22% stake in the Carpentaria Joint Venture to True North Copper for $2.88 million.</p>
+            <p class="deal-meta">18 June 2026 · Maddison Elliott</p>
+          </div>
+        </a>
+      </article>
+
+      <article class="deal-card fade-in">
+        <a href="https://mining.com.au/guardian-metal-acquires-property-near-tempiute-project/" style="display:flex;gap:14px;width:100%">
+          <div class="deal-img-wrap">
+            <img class="deal-img" src="https://mining.com.au/wp-content/uploads/2026/06/guardian-metal-1024x768.jpg" alt="Guardian Metal Tempiute project" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:80px\'>Deals</div>'">
+          </div>
+          <div class="deal-body">
+            <h3 class="deal-title">Guardian Metal acquires property near Tempiute Project</h3>
+            <p class="deal-excerpt">Guardian Metal Resources (LSE:GMET) is acquiring Lincoln Estate Groups, which includes 841 acres of real property and 2,540 acre-feet of annual water rights.</p>
+            <p class="deal-meta">18 June 2026 · Aaliyah Rogan</p>
+          </div>
+        </a>
+      </article>
+
+      <article class="deal-card fade-in">
+        <a href="https://mining.com.au/invinity-energy-sells-battery-system-to-us-steel-mill/" style="display:flex;gap:14px;width:100%">
+          <div class="deal-img-wrap">
+            <img class="deal-img" src="https://mining.com.au/wp-content/uploads/2026/06/pacific-steel-group.jpg" alt="Mojave Mill California" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:80px\'>Deals</div>'">
+          </div>
+          <div class="deal-body">
+            <h3 class="deal-title">Invinity Energy sells battery system to US steel mill</h3>
+            <p class="deal-excerpt">Invinity Energy Systems (LSE:IES) is selling a 32 MWh battery system to US steel fabricator Pacific Steel Group for the Mojave Micro Mill Project in California.</p>
+            <p class="deal-meta">17 June 2026 · Aaliyah Rogan</p>
+          </div>
+        </a>
+      </article>
+
+      <article class="deal-card fade-in">
+        <a href="https://mining.com.au/white-gold-sets-date-for-spin-out-shareholder-approval/" style="display:flex;gap:14px;width:100%">
+          <div class="deal-img-wrap">
+            <img class="deal-img" src="https://mining.com.au/wp-content/uploads/2026/02/White-Gold-1.png" alt="White Gold Corp" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:80px\'>Deals</div>'">
+          </div>
+          <div class="deal-body">
+            <h3 class="deal-title">White Gold sets date for spin-out shareholder approval</h3>
+            <p class="deal-excerpt">White Gold (TSX-V:WGO) has set a record date for shareholder approval of its proposed spin-out, W2 Critical Minerals, meeting planned for 11 August 2026.</p>
+            <p class="deal-meta">16 June 2026 · Aaliyah Rogan</p>
+          </div>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Trending + Videos row ─────────────────────────────── -->
+<div class="container">
+  <div class="two-col" style="padding:32px 0;">
+
+    <!-- Trending -->
+    <section aria-label="Trending stories">
+      <div class="section-head">
+        <div class="gold-bar" aria-hidden="true"></div>
+        <h2>Trending Stories</h2>
+        <a href="https://mining.com.au/trending-stories/" class="view-more">View more →</a>
+      </div>
+      <ol class="trending-list" style="list-style:none;">
+        <li>
+          <article class="trending-item fade-in">
+            <span class="trending-num" aria-hidden="true">01</span>
+            <div class="trending-img-wrap">
+              <img class="trending-img" src="https://mining.com.au/wp-content/uploads/2026/06/purepoint-uranium-group-dorado-project-saskatchewan-canada-1024x576.png" alt="Purepoint Uranium" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:64px\'>Img</div>'">
+            </div>
+            <div class="trending-body">
+              <p class="trending-cat">Uranium</p>
+              <a href="https://mining.com.au/purepoint-targets-nova-expansion-with-summer-drilling/">
+                <h3 class="trending-title">Purepoint targets Nova expansion with summer drilling</h3>
+              </a>
+              <p class="trending-excerpt">Purepoint Uranium Group has begun its summer drilling program at the Dorado project in the Athabasca Basin.</p>
+              <time class="trending-date" datetime="2026-06-18">18 June 2026</time>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="trending-item fade-in">
+            <span class="trending-num" aria-hidden="true">02</span>
+            <div class="trending-img-wrap">
+              <img class="trending-img" src="https://mining.com.au/wp-content/uploads/2026/06/stavely-minerals-stavely-project-victoria-1024x576.png" alt="Stavely Minerals" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:64px\'>Img</div>'">
+            </div>
+            <div class="trending-body">
+              <p class="trending-cat">News</p>
+              <a href="https://mining.com.au/stavely-begins-deep-drilling-at-freddys-find/">
+                <h3 class="trending-title">Stavely begins deep drilling at Freddy's Find</h3>
+              </a>
+              <p class="trending-excerpt">Stavely Minerals has commenced diamond drilling to test beneath multiple gold-silver intercepts at the Freddy's Find prospect in western Victoria.</p>
+              <time class="trending-date" datetime="2026-06-18">18 June 2026</time>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="trending-item fade-in">
+            <span class="trending-num" aria-hidden="true">03</span>
+            <div class="trending-img-wrap">
+              <img class="trending-img" src="https://mining.com.au/wp-content/uploads/2026/06/G7-2026-1024x576.png" alt="G7 2026" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:64px\'>Img</div>'">
+            </div>
+            <div class="trending-body">
+              <p class="trending-cat">News</p>
+              <a href="https://mining.com.au/critical-minerals-take-centre-stage-at-g7/">
+                <h3 class="trending-title">Critical minerals take centre stage at G7</h3>
+              </a>
+              <p class="trending-excerpt">Following preliminary discussions at the annual G7 Summit in France, the group zeroed in on securing critical mineral supply chains.</p>
+              <time class="trending-date" datetime="2026-06-18">18 June 2026</time>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="trending-item fade-in">
+            <span class="trending-num" aria-hidden="true">04</span>
+            <div class="trending-img-wrap">
+              <img class="trending-img" src="https://mining.com.au/wp-content/uploads/2026/06/kingston-resources-mineral-hill-project-new-south-wales-1024x576.png" alt="Kingston Resources" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:64px\'>Img</div>'">
+            </div>
+            <div class="trending-body">
+              <p class="trending-cat">News</p>
+              <a href="https://mining.com.au/kingston-pivots-mineral-hill-strategy-with-capital-raising/">
+                <h3 class="trending-title">Kingston pivots Mineral Hill strategy with capital raising</h3>
+              </a>
+              <time class="trending-date" datetime="2026-06-18">18 June 2026</time>
+            </div>
+          </article>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Events Sidebar -->
+    <section class="events" aria-label="Upcoming events" style="background:transparent;padding:0;">
+      <div class="section-head">
+        <div class="gold-bar" aria-hidden="true"></div>
+        <h2>Upcoming Events</h2>
+        <a href="https://mining.com.au/events/" class="view-more">View all →</a>
+      </div>
+      <div class="events-list">
+        <article class="event-card fade-in">
+          <div class="event-date-box" aria-label="July 6">
+            <span class="month">Jul</span>
+            <span class="day">6</span>
+          </div>
+          <div class="event-body">
+            <a href="https://mining.com.au/rick-rules-investment-symposium-7-11-july/">
+              <h3 class="event-title">Rick Rule's Investment Symposium</h3>
+            </a>
+            <p class="event-where">The Boca Raton, FL, USA</p>
+            <p class="event-desc">6–10 July 2026. The nation's premier annual event on resource and natural resource investing.</p>
+          </div>
+        </article>
+        <article class="event-card fade-in">
+          <div class="event-date-box" aria-label="July 22">
+            <span class="month">Jul</span>
+            <span class="day">22</span>
+          </div>
+          <div class="event-body">
+            <a href="https://mining.com.au/noosa-mining-investor-conference-july-2026/">
+              <h3 class="event-title">Noosa Mining Investor Conference</h3>
+            </a>
+            <p class="event-where">Peppers Noosa Resort, Noosa Heads, QLD</p>
+            <p class="event-desc">22–24 July 2026. Where Resources Meet Results.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ─── Videos ────────────────────────────────────────────── -->
+<section class="videos" aria-label="Videos and interviews">
+  <div class="container">
+    <div class="section-head">
+      <div class="gold-bar" aria-hidden="true"></div>
+      <h2>Videos / Interviews</h2>
+      <a href="https://mining.com.au/video/" class="view-more">View more →</a>
+    </div>
+    <div class="videos-grid">
+
+      <article class="video-card fade-in">
+        <a href="https://mining.com.au/mammoth-targets-high-quality-silver-at-blue-dick-ahead-of-drilling/">
+          <div class="video-img-wrap">
+            <img class="video-img" src="https://mining.com.au/wp-content/uploads/2026/06/Mammoth-Minerals_16062026-1024x576.png" alt="Mammoth Minerals interview" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:220px\'>Video</div>'">
+            <div class="play-btn" aria-label="Play video">
+              <div class="play-icon" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="video-body">
+            <h3 class="video-title">Mammoth targets high-quality silver at Blue Dick ahead of drilling</h3>
+            <time class="video-date" datetime="2026-06-16">16 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="video-card fade-in">
+        <a href="https://mining.com.au/abx-advances-two-bauxite-projects-as-aluminium-demand-grows/">
+          <div class="video-img-wrap">
+            <img class="video-img" src="https://mining.com.au/wp-content/uploads/2026/06/05-full-image-commodity-as-headline-1-1024x576.png" alt="ABx Group bauxite" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:140px\'>Video</div>'">
+            <div class="play-btn" aria-label="Play video">
+              <div class="play-icon" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="video-body">
+            <h3 class="video-title">ABx advances two bauxite projects as aluminium demand grows</h3>
+            <time class="video-date" datetime="2026-06-16">16 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+      <article class="video-card fade-in">
+        <a href="https://mining.com.au/aguia-starts-phosphate-production-in-brazil/">
+          <div class="video-img-wrap">
+            <img class="video-img" src="https://mining.com.au/wp-content/uploads/2026/06/Aguia_16062026-1024x576.png" alt="Aguia Resources" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\' style=\'height:140px\'>Video</div>'">
+            <div class="play-btn" aria-label="Play video">
+              <div class="play-icon" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="video-body">
+            <h3 class="video-title">Aguia starts phosphate production in Brazil</h3>
+            <time class="video-date" datetime="2026-06-16">16 June 2026</time>
+          </div>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Commodities Grid ───────────────────────────────────── -->
+<section class="commodities" aria-label="Commodity coverage">
+  <div class="container">
+    <div class="section-head">
+      <div class="gold-bar" aria-hidden="true"></div>
+      <h2>Commodities &amp; Market Coverage</h2>
+    </div>
+    <div class="comm-grid">
+      <a href="https://mining.com.au/commodities/gold/" class="comm-card fade-in" aria-label="Gold news">
+        <div class="comm-icon" aria-hidden="true">🥇</div>
+        <div class="comm-name">Gold</div>
+        <p class="comm-desc">Follow gold news and insights that matter for producers, developers, and investors positioning around the gold price cycle.</p>
+      </a>
+      <a href="https://mining.com.au/commodities/lithium/" class="comm-card fade-in" aria-label="Lithium news">
+        <div class="comm-icon" aria-hidden="true">⚡</div>
+        <div class="comm-name">Lithium</div>
+        <p class="comm-desc">Lithium remains central to the energy transition. Our coverage captures the projects and companies behind it.</p>
+      </a>
+      <a href="https://mining.com.au/commodities/copper/" class="comm-card fade-in" aria-label="Copper news">
+        <div class="comm-icon" aria-hidden="true">🔩</div>
+        <div class="comm-name">Copper</div>
+        <p class="comm-desc">Copper is the backbone of electrification. We report on exploration, development, and production across major regions.</p>
+      </a>
+      <a href="https://mining.com.au/commodities/silver/" class="comm-card fade-in" aria-label="Silver news">
+        <div class="comm-icon" aria-hidden="true">🥈</div>
+        <div class="comm-name">Silver</div>
+        <p class="comm-desc">Silver's dual role as a precious and industrial metal makes it an important part of our commodities mix.</p>
+      </a>
+      <a href="https://mining.com.au/commodities/iron-ore/" class="comm-card fade-in" aria-label="Iron ore news">
+        <div class="comm-icon" aria-hidden="true">⚙️</div>
+        <div class="comm-name">Iron Ore</div>
+        <p class="comm-desc">Iron ore remains critical to global steel production and Australia's export story.</p>
+      </a>
+      <a href="https://mining.com.au/commodities/critical-minerals/" class="comm-card fade-in" aria-label="Critical minerals news">
+        <div class="comm-icon" aria-hidden="true">💎</div>
+        <div class="comm-name">Critical Minerals</div>
+        <p class="comm-desc">Track antimony, rare earths, tungsten, and the minerals reshaping global supply chains.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Newsletter CTA ─────────────────────────────────────── -->
+<section class="newsletter-cta" aria-label="Newsletter signup">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-icon" aria-hidden="true">✉️</div>
+      <h3>Stay Informed on up-to-the-minute mining news</h3>
+      <p>Get the best articles delivered straight to your inbox.</p>
+      <form class="newsletter-form" aria-label="Newsletter signup form" novalidate>
+        <label for="nl-email" class="sr-only">Email address</label>
+        <input type="email" id="nl-email" name="email" placeholder="Your email address" autocomplete="email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── Footer ───────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="footer-logo-text">Mining<span>.com.au</span></div>
+        <p>Mining.com.au is published by Mayfair Media Operations Pty Ltd ABN 94 627 513 295. The information we provide is general in nature and is not financial advice.</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/mining.com.au/" class="social-btn" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+          <a href="https://twitter.com/miningcomau" class="social-btn" aria-label="Twitter / X" target="_blank" rel="noopener noreferrer">𝕏</a>
+          <a href="https://www.linkedin.com/company/mining-com-au/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
+          <a href="https://www.youtube.com/@miningcomau" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener noreferrer">▶</a>
+        </div>
+      </div>
+
+      <nav class="footer-col" aria-label="Commodities links">
+        <h4>Commodities</h4>
+        <ul>
+          <li><a href="https://mining.com.au/commodities/gold/">Gold</a></li>
+          <li><a href="https://mining.com.au/commodities/copper/">Copper</a></li>
+          <li><a href="https://mining.com.au/commodities/battery-metals/">Battery Metals</a></li>
+          <li><a href="https://mining.com.au/commodities/iron-ore/">Iron Ore</a></li>
+          <li><a href="https://mining.com.au/commodities/rare-earth-elements/">Rare Earths</a></li>
+          <li><a href="https://mining.com.au/commodities/uranium/">Uranium</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="News links">
+        <h4>News</h4>
+        <ul>
+          <li><a href="https://mining.com.au/special-features/">Special Features</a></li>
+          <li><a href="https://mining.com.au/deals/">Deals &amp; Dollars</a></li>
+          <li><a href="https://mining.com.au/video/">Video</a></li>
+          <li><a href="https://mining.com.au/category-education/">Education</a></li>
+          <li><a href="https://mining.com.au/events/">Events</a></li>
+          <li><a href="https://mining.com.au/company-reports/">Company Reports</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="About links">
+        <h4>About</h4>
+        <ul>
+          <li><a href="https://mining.com.au/team/">Team</a></li>
+          <li><a href="https://mining.com.au/advertise/">Advertise</a></li>
+          <li><a href="https://mining.com.au/contact/">Contact</a></li>
+          <li><a href="https://mining.com.au/privacy-policy/">Privacy Policy</a></li>
+          <li><a href="https://mining.com.au/terms-conditions/">Terms &amp; Conditions</a></li>
+        </ul>
+      </nav>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>Copyright 2026 Mining.com.au. All rights reserved.</span>
+      <span>
+        <a href="https://mining.com.au/privacy-policy/">Privacy</a> ·
+        <a href="https://mining.com.au/terms-conditions/">Terms</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Skip-link for accessibility -->
+<style>
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+a.skip-link {
+  position: absolute;
+  top: -40px; left: 8px;
+  background: var(--gold);
+  color: var(--black);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  z-index: 9999;
+  transition: top .2s;
+}
+a.skip-link:focus { top: 8px; }
+</style>
+
+<script>
+// ─── Hamburger toggle ─────────────────────────────────────
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = hamburger.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', isOpen);
+  if (isOpen) {
+    mobileNav.removeAttribute('hidden');
+    mobileNav.classList.add('open');
+  } else {
+    mobileNav.setAttribute('hidden', '');
+    mobileNav.classList.remove('open');
+  }
+});
+
+// Close mobile nav on outside click
+document.addEventListener('click', (e) => {
+  if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileNav.setAttribute('hidden', '');
+    mobileNav.classList.remove('open');
+  }
+});
+
+// ─── Dropdown keyboard a11y ───────────────────────────────
+document.querySelectorAll('.nav-item button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    // Close all first
+    document.querySelectorAll('.nav-item button').forEach(b =>
+      b.setAttribute('aria-expanded', 'false')
+    );
+    btn.setAttribute('aria-expanded', !expanded);
+  });
+});
+// Close dropdowns on outside click
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.nav-item')) {
+    document.querySelectorAll('.nav-item button').forEach(b =>
+      b.setAttribute('aria-expanded', 'false')
+    );
+  }
+});
+
+// ─── Scroll-triggered fade-in ──────────────────────────────
+const fadeEls = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+fadeEls.forEach(el => observer.observe(el));
+
+// ─── Newsletter form ──────────────────────────────────────
+document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = e.target.querySelector('input[type="email"]');
+  if (!input.value || !input.validity.valid) {
+    input.focus();
+    return;
+  }
+  const btn = e.target.querySelector('button');
+  btn.textContent = '✓ Subscribed!';
+  btn.style.background = '#2d7d2d';
+  input.value = '';
+  input.disabled = true;
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Subscribe';
+    btn.style.background = '';
+    input.disabled = false;
+    btn.disabled = false;
+  }, 4000);
+});
+
+// ─── Sticky header shadow on scroll ──────────────────────
+window.addEventListener('scroll', () => {
+  const header = document.querySelector('.site-header');
+  header.style.boxShadow = window.scrollY > 10
+    ? '0 2px 20px rgba(0,0,0,.5)'
+    : 'none';
+}, { passive: true });
+</script>
+
+</body>
+</html>
