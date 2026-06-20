@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -2650,6 +2651,158 @@
 
             .trusted__logos {
                 grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        /* ============================================================
+           RESPONSIVE ENHANCEMENTS — additive, non-destructive.
+           Improves fit across phones, phablets, tablets, laptops, 4K.
+           Does not remove or alter any existing rules above.
+           ============================================================ */
+
+        /* Global: stop horizontal overflow on any device */
+        html, body { max-width: 100%; overflow-x: hidden; }
+        img, video, iframe, svg { max-width: 100%; height: auto; }
+        table { max-width: 100%; }
+
+        /* Make wide tables scroll horizontally instead of breaking layout */
+        .stocks-table, .commodities__grid table, table {
+            display: table;
+        }
+        .stocks__layout, .stocks-wrap, .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fluid container padding for ultra-wide and small screens */
+        @media (min-width: 1600px) {
+            :root { --container: 1480px; }
+        }
+
+        /* Large desktop / small laptop tweaks */
+        @media (max-width: 1399px) {
+            .container,
+            .navbar__inner,
+            .hero-promo__inner,
+            .sponsor__inner,
+            .info-filter__inner,
+            .daily__inner,
+            .events__cta,
+            .stay-ahead__inner,
+            .footer__top,
+            .footer__bottom,
+            .newsletter__inner {
+                padding-left: 32px;
+                padding-right: 32px;
+            }
+        }
+
+        /* Small tablets / large phones */
+        @media (max-width: 860px) {
+            .news__grid,
+            .commodities__grid,
+            .jobs__grid,
+            .events__grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer__top {
+                grid-template-columns: 1fr 1fr;
+            }
+            .trusted__logos {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .hero-promo__title { font-size: clamp(22px, 4.2vw, 30px); }
+            .section__title,
+            .daily__title,
+            .stay-ahead h2 { font-size: clamp(20px, 3.6vw, 26px); }
+        }
+
+        /* Phones */
+        @media (max-width: 540px) {
+            .container,
+            .navbar__inner,
+            .hero-promo__inner,
+            .sponsor__inner,
+            .info-filter__inner,
+            .breaking-bar,
+            .daily__inner,
+            .events__cta,
+            .stay-ahead__inner,
+            .footer__top,
+            .footer__bottom,
+            .newsletter__inner {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .news__grid,
+            .commodities__grid,
+            .jobs__grid,
+            .events__grid,
+            .footer__top,
+            .trusted__logos {
+                grid-template-columns: 1fr;
+            }
+
+            .trusted__logos { grid-template-columns: repeat(2, 1fr); }
+
+            .hero-promo__title { font-size: clamp(20px, 6vw, 26px); line-height: 1.2; }
+            .hero-promo__text  { font-size: 14px; }
+            .section__title,
+            .daily__title,
+            .events__cta h3,
+            .stay-ahead h2 { font-size: 20px; }
+
+            /* Newsletter & forms stack cleanly */
+            .newsletter__form,
+            .newsletter__inner form,
+            form {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+            }
+            .newsletter__form input,
+            .newsletter__form button,
+            form input,
+            form button { width: 100%; }
+
+            /* Sponsor + ticker rows scroll instead of squashing */
+            .sponsor__list,
+            .ticker__list,
+            .breaking-bar {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .sponsor__list::-webkit-scrollbar,
+            .ticker__list::-webkit-scrollbar { display: none; }
+
+            .video-row { grid-template-columns: 96px 1fr; gap: 10px; }
+
+            /* Buttons full width feel better on phones */
+            .btn-block-mobile,
+            .hero-promo__cta { width: 100%; justify-content: center; }
+        }
+
+        /* Very small phones */
+        @media (max-width: 380px) {
+            .navbar__logo-text { font-size: 15px; }
+            .hero-promo__title { font-size: 19px; }
+            .video-row { grid-template-columns: 84px 1fr; }
+        }
+
+        /* Landscape phones — keep navbar usable */
+        @media (max-height: 480px) and (orientation: landscape) {
+            .navbar__nav.is-open {
+                max-height: calc(100vh - 56px);
+            }
+        }
+
+        /* Touch devices: bigger tap targets */
+        @media (hover: none) and (pointer: coarse) {
+            a, button, .btn, .navlink, .hamburger {
+                touch-action: manipulation;
             }
         }
     </style>
